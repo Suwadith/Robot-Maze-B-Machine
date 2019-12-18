@@ -43,8 +43,8 @@ SEES
     Maze
     
 SETS
-    REPORT = {Exceeding_Maze_Boundary, Maze_Wall_Crash, Moved_North, Moved_East, Moved_South, Moved_West, Cannot_Teleport_Immediately, Cannot_Teleport_To_The_Same_Square, Teleported};
-    ENQUIRY = {yes, no}
+    REPORT = {Exceeding_Maze_Boundary, Maze_Wall_Crash, Moved_North, Moved_East, Moved_South, Moved_West, Cannot_Teleport_Immediately, Cannot_Teleport_To_The_Same_Square, Teleported, yes, no}
+    // ENQUIRY = {yes, no}
     
 VARIABLES
     robotXPosition,
@@ -139,7 +139,7 @@ OPERATIONS
 
 
         report <-- Teleport(teleportXPosition, teleportYPosition) =
-            PRE report : REPORT & teleportXPosition : x_axis_range & teleportYPosition : y_axis_range
+            PRE report : REPORT & teleportXPosition : NATURAL1 & teleportYPosition : NATURAL1
             THEN
                 IF (size(visitedSquares) = 1) 
                 THEN 
@@ -150,6 +150,9 @@ OPERATIONS
                 ELSIF (teleportXPosition = robotXPosition & teleportYPosition = robotYPosition)
                 THEN
                     report := Cannot_Teleport_To_The_Same_Square
+                ELSIF ((teleportXPosition |-> teleportYPosition) /: maze)
+                THEN
+                    report := Exceeding_Maze_Boundary
                 ELSE
                     visitedSquares := (visitedSquares <- (teleportXPosition |-> teleportYPosition)) ||
                     currentPosition := (teleportXPosition |-> teleportYPosition) ||
@@ -167,7 +170,7 @@ OPERATIONS
 
 
         enquiry <-- foundExit = 
-            PRE enquiry : ENQUIRY
+            PRE enquiry : REPORT
             THEN
                 IF (currentPosition : exit_square)
                 THEN 
@@ -179,13 +182,18 @@ OPERATIONS
 
 
         visited <-- visitedSquare(visitedXPosition, visitedYPosition) =
-            PRE visitedXPosition : x_axis_range & visitedYPosition : y_axis_range
-            THEN 
-                IF ((visitedXPosition |-> visitedYPosition) : ran(front(visitedSquares)))
+            PRE visited : REPORT & visitedXPosition : NATURAL1 & visitedYPosition : NATURAL1
+            THEN
+                IF ((visitedXPosition |-> visitedYPosition) : maze)
                 THEN 
-                    visited := yes
+                    IF ((visitedXPosition |-> visitedYPosition) : ran(front(visitedSquares)))
+                    THEN 
+                        visited := yes
+                    ELSE
+                        visited := no
+                    END
                 ELSE
-                    visited := no
+                    visited := Exceeding_Maze_Boundary
                 END
             END;
 
