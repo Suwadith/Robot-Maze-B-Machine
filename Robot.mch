@@ -1,7 +1,41 @@
 /* Robot
  * Author: Suwadith
- * Creation date: 12/18/2019
+ * Creation date: 12/15/2019
  */
+
+
+/*  Operations
+
+    MoveNorth:
+    Moves the robot 1 square towards North by increasing the current y axis value by 1. (y+1)
+
+    MoveEast:
+    Moves the robot 1 square towards East by increasing the current x axis value by 1. (x+1)
+
+    MoveSouth:
+    Moves the robot 1 square towards South by decreasing the current y axis value by 1. (y-1)
+
+    MoveWest:
+    Moves the robot 1 square towards West by decreasing the current x axis value by 1. (x-1)
+
+    Teleport:
+    Teleports the robot from one square to another square where the squares are both empty (Non Internal Walls).
+    Teleport only works after an initial movement has been made. (E.g:- After the first MoveNorth Operation)
+
+    getPosition:
+    Returns the current position of the robot (x |-> y)
+
+    foundExit:
+    Returns yes/no depending on whether the robot has reached the exit square or not.
+
+    visitedSquare:
+    Returns whether the robot has visited a given square already (yes/no) 
+    
+    robotsRoute:
+    Returns the sequence of the path that the robot has gone through ({(1 |-> (x1 |-> y1)), (2 |-> (x2 |-> y2))})
+
+*/
+
 MACHINE
     Robot
     
@@ -27,24 +61,24 @@ INVARIANT
 INITIALISATION
     robotXPosition := 1 ||
     robotYPosition := 1 ||
-    currentPosition := ( 1|-> 1 ) ||
-    visitedSquares := [( 1|-> 1 )]
+    currentPosition := ( 1 |-> 1 ) ||
+    visitedSquares := [( 1 |-> 1 )]
     
 OPERATIONS
 
     report <-- MoveNorth = 
         PRE report : REPORT
         THEN
-            IF (robotYPosition+1 > max(y_axis_range))
+            IF (robotYPosition + 1 > max(y_axis_range))
             THEN 
                 report := Exceeding_Maze_Boundary
-            ELSIF ((robotXPosition |-> robotYPosition+1) : internal_walls) 
+            ELSIF ((robotXPosition |-> robotYPosition + 1) : internal_walls) 
             THEN 
                 report := Maze_Wall_Crash
             ELSE 
-                visitedSquares := (visitedSquares <- (robotXPosition |-> robotYPosition+1)) ||
-                currentPosition := (robotXPosition |-> robotYPosition+1) ||
-                robotYPosition := robotYPosition+1 ||
+                visitedSquares := (visitedSquares <- (robotXPosition |-> robotYPosition + 1)) ||
+                currentPosition := (robotXPosition |-> robotYPosition + 1) ||
+                robotYPosition := robotYPosition + 1 ||
                 report := Moved_North
             END
         END;
@@ -53,16 +87,16 @@ OPERATIONS
     report <-- MoveEast = 
         PRE report : REPORT
         THEN
-            IF (robotXPosition+1 > max(x_axis_range))
+            IF (robotXPosition + 1 > max(x_axis_range))
             THEN 
                 report := Exceeding_Maze_Boundary
-            ELSIF ((robotXPosition+1 |-> robotYPosition) : internal_walls) 
+            ELSIF ((robotXPosition + 1 |-> robotYPosition) : internal_walls) 
             THEN 
                 report := Maze_Wall_Crash
             ELSE 
-                visitedSquares := (visitedSquares <- (robotXPosition+1 |-> robotYPosition)) ||
-                currentPosition := (robotXPosition+1 |-> robotYPosition) ||
-                robotXPosition := robotXPosition+1 ||
+                visitedSquares := (visitedSquares <- (robotXPosition + 1 |-> robotYPosition)) ||
+                currentPosition := (robotXPosition + 1 |-> robotYPosition) ||
+                robotXPosition := robotXPosition + 1 ||
                 report := Moved_East
             END
         END;
@@ -71,16 +105,16 @@ OPERATIONS
     report <-- MoveSouth = 
         PRE report : REPORT
         THEN
-            IF (robotYPosition-1 < min(y_axis_range))
+            IF (robotYPosition - 1 < min(y_axis_range))
             THEN 
                 report := Exceeding_Maze_Boundary
-            ELSIF ((robotXPosition |-> robotYPosition-1) : internal_walls) 
+            ELSIF ((robotXPosition |-> robotYPosition - 1) : internal_walls) 
             THEN 
                 report := Maze_Wall_Crash
             ELSE 
-                visitedSquares := (visitedSquares <- (robotXPosition |-> robotYPosition-1)) ||
-                currentPosition := (robotXPosition |-> robotYPosition-1) ||
-                robotYPosition := robotYPosition-1 ||
+                visitedSquares := (visitedSquares <- (robotXPosition |-> robotYPosition - 1)) ||
+                currentPosition := (robotXPosition |-> robotYPosition - 1) ||
+                robotYPosition := robotYPosition - 1 ||
                 report := Moved_South
             END        
         END;
@@ -89,16 +123,16 @@ OPERATIONS
         report <-- MoveWest = 
             PRE report : REPORT
             THEN
-                IF (robotXPosition-1 < min(x_axis_range))
+                IF (robotXPosition - 1 < min(x_axis_range))
                 THEN 
                     report := Exceeding_Maze_Boundary
-                ELSIF ((robotXPosition-1 |-> robotYPosition) : internal_walls) 
+                ELSIF ((robotXPosition - 1 |-> robotYPosition) : internal_walls) 
                 THEN 
                     report := Maze_Wall_Crash
                 ELSE 
-                    visitedSquares := (visitedSquares <- (robotXPosition-1 |-> robotYPosition)) ||
-                    currentPosition := (robotXPosition-1 |-> robotYPosition) ||
-                    robotXPosition := robotXPosition-1 ||
+                    visitedSquares := (visitedSquares <- (robotXPosition - 1 |-> robotYPosition)) ||
+                    currentPosition := (robotXPosition - 1 |-> robotYPosition) ||
+                    robotXPosition := robotXPosition - 1 ||
                     report := Moved_West
                 END
             END;

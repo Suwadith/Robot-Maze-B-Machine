@@ -1,6 +1,6 @@
 /* Maze
  * Author: Suwadith
- * Creation date: 12/17/2019
+ * Creation date: 12/15/2019
  */
 MACHINE
     Maze
@@ -20,7 +20,7 @@ PROPERTIES
     maze = x_axis_range * y_axis_range &
     internal_walls : x_axis_range <-> y_axis_range &
     internal_walls = {
-        (2 |-> 1),(6 |-> 1),(4 |-> 2),(6 |-> 2),(1 |-> 3),(2 |-> 3),(3 |-> 3),(4 |-> 3),(4 |-> 4),(6 |-> 4),(7 |-> 4),(2 |-> 5)
+        (2 |-> 1), (6 |-> 1), (4 |-> 2), (6 |-> 2), (1 |-> 3), (2 |-> 3), (3 |-> 3), (4 |-> 3), (4 |-> 4), (6 |-> 4), (7 |-> 4), (2 |-> 5)
     } &
     entrance_square : x_axis_range <-> y_axis_range &
     entrance_square = {(1 |-> 1)} &

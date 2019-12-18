@@ -2,9 +2,9 @@ digraph history {
 graph [nodesep=1.5, ranksep=1.5];
 0 [shape=box, color="#99BF38", fontsize=12, penwidth=2, label="x_axis_range = \{1,2,3,4,5,6,7\},y_axis_range = \{1,2,3,4,5\},maze = \{(1\|-\>1),(1\|-\>2),(1\|-\>3),(1\|-\>4),(1\|-\>5),(2\|-\>1),(2\|-\>2),(2\|-\>3),(2\|-\>4),(2\|-\>5),(3\|-\>1),(3\|-\>2),(3\|-\>3),(3\|-\>4),(3\|-\>5),(4\|-\>1),(4\|-\>2),(4\|-\>3),(4\|-\>4),(4\|-\>5),(5\|-\>1),(5\|-\>2),(5\|-\>3),(5\|-\>4),(5\|-\>5),(6\|-\>1),(6\|-\>2),(6\|-\>3),(6\|-\>4),(6\|-\>5),(7\|-\>1),(7\|-\>2),(7\|-\>3),(7\|-\>4),(7\|-\>5)\},\ninternal_walls = \{(1\|-\>3),(2\|-\>1),(2\|-\>3),(2\|-\>5),(3\|-\>3),(4\|-\>2),(4\|-\>3),(4\|-\>4),(6\|-\>1),(6\|-\>2),(6\|-\>4),(7\|-\>4)\},entrance_square(1) = 1,exit_square(1) = 5"];
 
-1 [shape=box, color="#99BF38", fontsize=12, penwidth=2, label="robotXPosition = 1,robotYPosition = 1,currentPosition = (1\|-\>1),\nvisitedSquares(1) = (1\|-\>1),robot_status = Exit_Square_Not_Found"];
+1 [shape=box, color="#99BF38", fontsize=12, penwidth=2, label="robotXPosition = 1,robotYPosition = 1,currentPosition = (1\|-\>1),\nvisitedSquares(1) = (1\|-\>1)"];
 
-2 [shape=doubleoctagon, color="#99BF38", fontsize=12, penwidth=2, label="robotXPosition = 1,robotYPosition = 2,currentPosition = (1\|-\>2),\nvisitedSquares(1) = (1\|-\>1),visitedSquares(2) = (1\|-\>2),robot_status = Exit_Square_Not_Found"];
+2 [shape=doubleoctagon, color="#99BF38", fontsize=12, penwidth=2, label="repeated (2)\nrobotXPosition = 1,robotYPosition = 2,currentPosition = (1\|-\>2),\nvisitedSquares(1) = (1\|-\>1),visitedSquares(2) = (1\|-\>2)"];
 
 root [shape=invtriangle, color="#99BF38", fontsize=12, penwidth=2, label="root"];
 
@@ -13,5 +13,6 @@ root -> 0 [style = dotted, color = black, label="SETUP_CONSTANTS", fontsize=12];
 0 -> 1 [color = "#006391", label="INITIALISATION", fontsize=12];
 
 1 -> 2 [color = "#006391", label="MoveNorth--\>Moved_North", fontsize=12];
+
 
 }
