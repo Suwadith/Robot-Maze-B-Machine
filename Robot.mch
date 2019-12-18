@@ -155,11 +155,10 @@ OPERATIONS
                 END
             END;
 
+
         route <-- robotsRoute =
             BEGIN
                 route := visitedSquares
             END
-
-
     
 END
