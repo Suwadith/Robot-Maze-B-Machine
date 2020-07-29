@@ -1,5 +1,5 @@
 # Robot-Maze-B-Machine
-A B-specification of a Robot moving around a simple Maze, using the B tools (Atelier B &amp; ProB)
+B-specification of a Robot moving around a simple Maze, using the B tools (Atelier B &amp; ProB)
 
 The figure below gives the layout of the rectangular shaped maze, the Robot is represented by "•" & its starting
 position is the entry square (1, 1).
